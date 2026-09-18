@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jewellery Ledger - Nepali Bhaka Khata & Jewellery Management System</title>
+    <meta name="description" content="Jewellery Accounting & Management System with Traditional Nepali Bhaka Khata and Patra Tracking for Shree Ganesh Jewellers." />
+    <meta property="og:title" content="Jewellery Ledger - Nepali Bhaka Khata & Jewellery Management System" />
+    <meta property="og:description" content="Jewellery Accounting & Management System with Traditional Nepali Bhaka Khata and Patra Tracking for Shree Ganesh Jewellers." />
+    
+    <!-- Google Fonts for English Display, Numerals & Authentic Nepali Devanagari typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js CDN for executive visual graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <!-- System CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Safe Global Navigation & Module Dropdown Controller -->
+    <script>
+      window.App = window.App || {};
+      window.toggleSidebarModule = function(moduleId) {
+        const el = document.getElementById(moduleId);
+        if (el) {
+          el.classList.toggle('open');
+          const btn = el.querySelector('.nav-module-header');
+          if (btn) {
+            btn.setAttribute('aria-expanded', el.classList.contains('open') ? 'true' : 'false');
+          }
+        }
+      };
+      window.App.toggleSidebarModule = window.toggleSidebarModule;
+    </script>
+  </head>
+  <body>
+    <div id="app" class="app-layout">
+      <!-- Main Navigation Sidebar -->
+      <aside class="sidebar" id="main-sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-click" onclick="App.navigate('dashboard')" style="display: flex; align-items: center; gap: 12px; flex: 1; cursor: pointer;">
+            <div class="brand-logo-gem">SG</div>
+            <div class="brand-text">
+              <span class="brand-title">Shree Ganesh</span>
+              <span class="brand-subtitle">Jewellers • New Road</span>
+            </div>
+          </div>
+          <button class="sidebar-mobile-close-btn" id="sidebar-mobile-close" title="Close Menu" aria-label="Close Navigation">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav">
+          <!-- 1. DIRECT OVERVIEW -->
+          <a href="javascript:void(0)" class="nav-item active" data-view="dashboard" id="nav-dashboard" onclick="App.navigate('dashboard'); return false;">
+            <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="nav-label">Dashboard</span>
+          </a>
+
+          <!-- SECTION: CORE OPERATIONS -->
+          <div class="nav-section-title">CORE OPERATIONS</div>
+
+          <!-- 2. Accounts & Billing Dropdown Module -->
+          <div class="nav-module-dropdown open" id="module-accounts">
+            <button type="button" class="nav-module-header" onclick="window.toggleSidebarModule('module-accounts')" aria-expanded="true">
+              <div class="nav-module-title-wrap">
+                <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+                <span class="nav-label">Accounts & Billing</span>
+              </div>
+              <span class="nav-tag" style="font-size: 10px; margin-right: 6px;">BILLING</span>
+              <svg class="nav-module-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-submodules" id="submodules-accounts">
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="new-bill" id="nav-new-bill" onclick="App.navigate('new-bill'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">+ New Bill / Invoice</span>
+                <span class="nav-tag" style="margin-left: auto;">QUICK</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="bills" id="nav-bills" onclick="App.navigate('bills'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Bills & Invoices Register</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="payments" id="nav-payments" onclick="App.navigate('payments'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Payments & Receipts</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 3. Khata & Ledger Dropdown Module -->
+          <div class="nav-module-dropdown open" id="module-khata">
+            <button type="button" class="nav-module-header" onclick="window.toggleSidebarModule('module-khata')" aria-expanded="true">
+              <div class="nav-module-title-wrap">
+                <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span class="nav-label">Khata & Ledger</span>
+              </div>
+              <span class="nav-tag nav-tag-nepali" style="margin-right: 6px; color: #F59E0B;">खाता</span>
+              <svg class="nav-module-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-submodules" id="submodules-khata">
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="new-khata" id="nav-new-khata" onclick="App.navigate('new-khata'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">+ New Khata (भाखा दर्ता)</span>
+                <span class="nav-tag nav-tag-nepali" style="margin-left: auto; color: #F59E0B;">भाखा</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="khata-view" id="nav-traditional-khata" onclick="App.navigate('khata-view'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Traditional Khata 📜</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="ledger" id="nav-customer-khata" onclick="App.navigate('ledger'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Customer Khata Ledger</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="template-builder" id="nav-template-builder" onclick="App.navigate('template-builder'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Khata Template Builder</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- SECTION: BULLION & CHANNELS -->
+          <div class="nav-section-title">BULLION & CHANNELS</div>
+
+          <!-- 4. Customers & Bullion Dropdown Module -->
+          <div class="nav-module-dropdown open" id="module-customers-bullion">
+            <button type="button" class="nav-module-header" onclick="window.toggleSidebarModule('module-customers-bullion')" aria-expanded="true">
+              <div class="nav-module-title-wrap">
+                <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span class="nav-label">Customers & Bullion</span>
+              </div>
+              <svg class="nav-module-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-submodules" id="submodules-customers-bullion">
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="customers" id="nav-customers" onclick="App.navigate('customers'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Customer Directory</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="rates" id="nav-rates" onclick="App.navigate('rates'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Today's Bullion Rates</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="sources" id="nav-sources" onclick="App.navigate('sources'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Business Sources</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- SECTION: DOCUMENTS & ANALYTICS -->
+          <div class="nav-section-title">DOCUMENTS & ANALYTICS</div>
+
+          <!-- 5. Analytics & Reports Dropdown Module -->
+          <div class="nav-module-dropdown open" id="module-analytics">
+            <button type="button" class="nav-module-header" onclick="window.toggleSidebarModule('module-analytics')" aria-expanded="true">
+              <div class="nav-module-title-wrap">
+                <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span class="nav-label">Analytics & Reports</span>
+              </div>
+              <svg class="nav-module-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-submodules" id="submodules-analytics">
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="reports" id="nav-reports" onclick="App.navigate('reports'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Financial & Sales Reports</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="analytics" id="nav-analytics" onclick="App.navigate('analytics'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Analytics Overview</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- SECTION: SYSTEM & SECURITY -->
+          <div class="nav-section-title">SYSTEM & SECURITY</div>
+
+          <!-- 6. System & Security Dropdown Module -->
+          <div class="nav-module-dropdown open" id="module-security">
+            <button type="button" class="nav-module-header" onclick="window.toggleSidebarModule('module-security')" aria-expanded="true">
+              <div class="nav-module-title-wrap">
+                <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="nav-label">System & Security</span>
+              </div>
+              <span class="nav-tag nav-tag-nepali" style="margin-right: 6px; color: #38BDF8;">सुरक्षा</span>
+              <svg class="nav-module-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-submodules" id="submodules-security">
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="login-history" id="nav-login-history" onclick="App.navigate('login-history'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Login History (सुरक्षा)</span>
+                <span class="nav-tag nav-tag-nepali" style="margin-left: auto; color: #38BDF8;">सुरक्षा</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="audit" id="nav-audit" onclick="App.navigate('audit'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Audit Trail Logs</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="users" id="nav-users" onclick="App.navigate('users'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">Staff & Roles</span>
+              </a>
+              <a href="javascript:void(0)" class="nav-item nav-sub-item" data-view="settings" id="nav-settings" onclick="App.navigate('settings'); return false;">
+                <span class="sub-dot"></span>
+                <span class="nav-label">System Settings</span>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Mobile Navigation Drawer Backdrop Overlay -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- Main Content Area -->
+      <div class="main-wrapper">
+        <!-- Top App Bar -->
+        <header class="app-header">
+          <div class="header-left">
+            <button class="header-icon-btn" id="sidebar-toggle-btn" title="Toggle Navigation">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+
+            <!-- Global Search Box -->
+            <div class="search-box-wrapper">
+              <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="global-search-input" class="search-input" placeholder="Search Bills (INV-2026-001), customers, phone..." autocomplete="off">
+            </div>
+          </div>
+
+          <div class="header-right">
+            <!-- Daily Gold Rate indicator -->
+            <div class="rate-badge-pill" id="header-rate-pill" title="Click to view & update bullion rates">
+              <span class="rate-pulse"></span>
+              <span>Loading Rate...</span>
+            </div>
+
+            <!-- Date in Bikram Sambat & English -->
+            <div id="header-today-date" style="font-size: 12px; font-weight: 600; color: var(--text-muted); display: none; @media(min-width: 900px){display: block;}"></div>
+
+            <!-- Quick Create Button -->
+            <button class="btn btn-primary btn-sm" onclick="App.navigate('new-bill')">
+              + New Bill / Invoice
+            </button>
+
+            <!-- User Badge / Role Switcher -->
+            <div id="header-user-badge" class="header-user-wrap" onclick="App.navigate('users')" title="Click to switch role/user">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </header>
+
+        <!-- Dynamic Page Content Container -->
+        <main class="content-body" id="page-content">
+          <!-- Views rendered dynamically by App.navigate() -->
+        </main>
+      </div>
+    </div>
+
+    <!-- Application Engine Scripts in Strict Dependency Order -->
+    <script src="/js/data.js"></script>
+    <script src="/js/calculations.js"></script>
+    <script src="/js/storage.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+      // Immediate execution check if DOM is already parsed
+      if (window.App && typeof window.App.init === 'function') {
+        window.App.init();
+      }
+    </script>
+  </body>
+</html>
+
+

@@ -1,0 +1,6 @@
+{
+  "name": "Jewellery Ledger",
+  "description": "Jewellery Accounting & Management System with Traditional Nepali Bhaka Khata and Patra Tracking for Shree Ganesh Jewellers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
